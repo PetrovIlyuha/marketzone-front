@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ProductCardWrapper = styled.div`
   width: 100%;
-  min-height: 500px;
+  min-height: 550px;
   border: 1px solid #f9e8e8;
   border-radius: 5px;
   overflow: hidden;
@@ -20,7 +20,7 @@ export const ProductCardWrapper = styled.div`
 export const ProductCardImageWrapper = styled.div`
   overflow: hidden;
   width: 100%;
-  height: 60%;
+  height: 50%;
 `;
 
 export const ProductCardImage = styled.img`
@@ -38,13 +38,18 @@ export const ProductCardContent = styled.div`
   height: fit-content;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
+  height: 50%;
+  button {
+    margin-top: 20px;
+  }
 `;
 
 export const ProductCardName = styled.h3`
   margin: 0;
   font-size: 18px;
   font-weight: 600;
+  word-wrap: break-word;
   color: #333;
 `;
 

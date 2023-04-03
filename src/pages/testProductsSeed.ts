@@ -47,7 +47,7 @@ export const testProducts: IProductDetails[] = [
     id: 5,
     slug: "canon-eos-rebel-t7-dslr-camera",
     imgSrc:
-      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5792/5792700_sd.jpg",
+      "https://c1.neweggimages.com/ProductImageCompressAll1280/AJ3AD200501QL27U.jpg",
     priceRegular: 599.99,
     priceDiscounted: 499.99,
     title: "Canon EOS Rebel T7 DSLR Camera",
@@ -83,7 +83,7 @@ export const testProducts: IProductDetails[] = [
       "https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/aplusautomation/vendorimages/3b39170e-0f2a-4fad-996c-baa81716f508._V325415166_.jpg",
     priceRegular: 199.99,
     priceDiscounted: 149.99,
-    title: "Philips Sonicare Diamondclean Toothbrush",
+    title: "Philips Diamond Clean Toothbrush",
     description:
       "This electric toothbrush from Philips Sonicare provides a deep clean and has multiple brushing modes.",
   },
@@ -123,8 +123,7 @@ export const testProducts: IProductDetails[] = [
   {
     id: 13,
     slug: "bose-soundlink-revolve-bluetooth-speaker",
-    imgSrc:
-      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6452/6452106cv1d.jpg",
+    imgSrc: "https://img.ricardostatic.ch/t_1800x1350/pl/1155422812/1/1/",
     priceRegular: 199.99,
     priceDiscounted: 179.99,
     title: "Bose Soundlink Revolve Bluetooth Speaker",
@@ -190,7 +189,7 @@ export const testProducts: IProductDetails[] = [
     id: 19,
     slug: "bose-noise-masking-sleepbuds-ii",
     imgSrc:
-      "https://thegadgetflow.com/wp-content/uploads/2020/09/Bose-Sleepbuds-II-Noise-Masking-Earbuds-03-1200x675.jpeg",
+      "https://assets.bose.com/content/dam/Bose_DAM/Web/consumer_electronics/global/products/headphones/noise_masking_sleepbuds_ii/images/SBII_PP_gallery-7_16x9_web.jpg/jcr:content/renditions/cq5dam.web.1920.1920.jpeg",
     priceRegular: 249.99,
     priceDiscounted: 199.99,
     title: "Bose Noise Masking Sleepbuds Ii",

@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   transition: all 0.2s ease-out;
-  background-color: ${colors.primary};
+  background-color: ${colors.accent_primary};
   height: ${HEADER_HEIGHT}px;
   z-index: ${Z_INDEX_2};
   h2 {
