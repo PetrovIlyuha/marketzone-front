@@ -7,6 +7,7 @@ interface IButtonProps {
   children?: React.ReactNode;
   block?: boolean;
   disabled?: boolean;
+  height?: string;
   onClick?: (e: React.MouseEvent<any>) => void;
 }
 
@@ -16,6 +17,7 @@ const Button = styled(
     type = "primary",
     disabled,
     block = false,
+    height,
     onClick = () => {},
     ...props
   }: IButtonProps) => (
@@ -25,17 +27,18 @@ const Button = styled(
   )
 )`
   user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   border-radius: 5px;
-  display: inline-flex;
-  align-items: center;
+  height: ${({ height }) => (height ? height : "40px")};
   width: ${({ block }) => (block ? "100%" : "fit-content")};
   justify-content: ${({ block }) => (block ? "center" : "initial")};
   font-size: 14px;
   font-weight: 600;
-  padding: 10px 22px;
+  padding: 0 10px;
   letter-spacing: 0.5px;
-  margin-top: 10px;
   transition: all 0.23s ease-out;
   border: 1px solid
     ${({ type }) => (type === "ghost" ? colors.primary : "transparent")};

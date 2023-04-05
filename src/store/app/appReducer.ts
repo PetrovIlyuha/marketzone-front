@@ -3,7 +3,7 @@ import { AppStoreInitState } from "./types";
 import { AppReducer, AppThunk, AppDispatch } from "../types";
 
 const initialState = {
-  isLoggedIn: false,
+  isLoggedIn: true,
   isAppLoading: false,
 };
 

@@ -5,6 +5,8 @@ const colors: { [key: string]: string } = {
   light_primary: "#8ecae6",
   secondary: "#ffb703",
   accent_secondary: "#fb8500",
+  count_item_bg: "#33aabb",
+  count_item_text: "#33ffe",
 };
 
 export default colors;
