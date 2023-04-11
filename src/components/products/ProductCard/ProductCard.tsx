@@ -13,7 +13,7 @@ import {
 
 import { FaHeart } from "react-icons/fa";
 import { IProductDetails } from "pages/types";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "components/interactions/button/Button";
 import { useAppDispatch, useAppSelector } from "store/types";
 import { selectFavoritedProducts } from "store/favorites/selectors";
@@ -68,9 +68,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </LikeButtonWrapper>
       <ProductCardContent>
         <ProductCardName>
-          <NavLink to={`product/${id}`} end>
-            {title}
-          </NavLink>
+          <Link to={`/product/${slug || id}`}>{title}</Link>
         </ProductCardName>
         <ProductCardDescription>{description}</ProductCardDescription>
         <ProductCardPrices>

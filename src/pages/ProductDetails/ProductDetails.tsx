@@ -77,7 +77,9 @@ const ProductDetails: FC = () => {
   const params = useParams();
   const [product, setProduct] = useState<IProductDetails | null>(null);
   useEffect(() => {
-    const foundProduct = testProducts.find((p) => String(p.id) === params.id);
+    const foundProduct = testProducts.find((p) =>
+      [String(p.id), p.slug].includes(params.id)
+    );
     console.log({ foundProduct });
     if (foundProduct) {
       setProduct(foundProduct);
