@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   ProductCardWrapper,
   ProductCardImage,
@@ -14,8 +13,11 @@ import {
 
 import { FaHeart } from "react-icons/fa";
 import { IProductDetails } from "pages/types";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Button from "components/interactions/button/Button";
+import { useAppDispatch, useAppSelector } from "store/types";
+import { selectFavoritedProducts } from "store/favorites/selectors";
+import { addToFavorites, removeFromFavorites } from "store/favorites/reducer";
 
 interface ProductCardProps {
   product: IProductDetails;
@@ -30,7 +32,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onLikeButtonClick,
   isLiked = false,
 }) => {
-  const [liked, setLiked] = useState<boolean>(isLiked);
+  const favorites = useAppSelector(selectFavoritedProducts);
+  const dispatch = useAppDispatch();
+
   const {
     id,
     slug,
@@ -42,11 +46,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   } = product;
 
   const handleLikeButtonClick = () => {
-    if (onLikeButtonClick) {
-      onLikeButtonClick();
+    if (!favorites.includes(product.id)) {
+      dispatch(addToFavorites(product.id));
+    } else {
+      dispatch(removeFromFavorites(product.id));
     }
-
-    setLiked(!liked);
   };
 
   return (
@@ -55,11 +59,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <ProductCardImage src={imgSrc} />
       </ProductCardImageWrapper>
       <LikeButtonWrapper onClick={handleLikeButtonClick}>
-        <FaHeart size={20} color={liked ? "#f72731" : "rgba(40,40,40,0.3)"} />
+        <FaHeart
+          size={20}
+          color={
+            favorites.includes(product.id) ? "#f72731" : "rgba(40,40,40,0.3)"
+          }
+        />
       </LikeButtonWrapper>
       <ProductCardContent>
         <ProductCardName>
-          <Link to={`/product/${slug || id}`}>{title}</Link>
+          <NavLink to={`product/${id}`} end>
+            {title}
+          </NavLink>
         </ProductCardName>
         <ProductCardDescription>{description}</ProductCardDescription>
         <ProductCardPrices>

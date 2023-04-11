@@ -12,10 +12,6 @@ const PrivateRoutes: FC = () => {
   return (
     <Routes>
       <Route path="/account-settings" element={<AccountSettings />} />
-      <Route
-        path="*"
-        element={!isPathMatched ? <Navigate to={paths.home} /> : null}
-      />
     </Routes>
   );
 };

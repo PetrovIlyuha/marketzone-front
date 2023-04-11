@@ -8,6 +8,7 @@ interface IButtonProps {
   block?: boolean;
   disabled?: boolean;
   height?: string;
+  width?: string;
   onClick?: (e: React.MouseEvent<any>) => void;
 }
 
@@ -18,6 +19,7 @@ const Button = styled(
     disabled,
     block = false,
     height,
+    width,
     onClick = () => {},
     ...props
   }: IButtonProps) => (

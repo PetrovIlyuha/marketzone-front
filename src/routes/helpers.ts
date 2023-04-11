@@ -1,12 +1,13 @@
 export const pathsPublic: { [key: string]: string } = {
   home: "/",
-  login: "/login",
-  productDetails: "/product/:idOrSlug",
+  login: "login",
+  productDetails: "product/:id",
+  favorites: "/favorites",
 };
 
 export const pathsPrivate: { [key: string]: string } = {
-  accountSettings: "/account-settings",
-  logout: "/logout",
+  accountSettings: "account-settings",
+  logout: "logout",
 };
 
 export const paths = { ...pathsPublic, ...pathsPrivate } as const;

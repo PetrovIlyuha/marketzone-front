@@ -14,11 +14,12 @@ import { Link } from "react-router-dom";
 import { paths } from "routes/helpers";
 import MenuIcon from "../../components/interactions/menu-icon/MenuIcon";
 import UserDropDownMenu from "components/menus/UserDropDownMenu/UserDropDownMenu";
+import { selectFavoritedProducts } from "store/favorites/selectors";
 
 const Header = () => {
   const userLoggedIn = useAppSelector(isLoggedIn);
   const [searchInput, setSearchInput] = useState<string>("");
-  console.log({ userLoggedIn });
+  const favoritedProducts = useAppSelector(selectFavoritedProducts);
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
@@ -39,23 +40,29 @@ const Header = () => {
       {userLoggedIn ? (
         <MenuSection>
           <MenuIcon
-            icon={<BsBox color="white" size={22} />}
-            count={29}
+            icon={<BsBox color="gray" size={22} />}
             link="/orders"
           ></MenuIcon>
           <MenuIcon
             link="/favorites"
-            icon={<AiOutlineHeart color="white" size={22} />}
+            linkActive={favoritedProducts.length !== 0}
+            icon={
+              <AiOutlineHeart
+                color={favoritedProducts.length ? "white" : "gray"}
+                size={22}
+              />
+            }
+            count={
+              favoritedProducts.length ? favoritedProducts.length : undefined
+            }
           ></MenuIcon>
           <MenuIcon
             link="/notifications"
-            icon={<IoMdNotificationsOutline color="white" size={22} />}
-            count={30}
+            icon={<IoMdNotificationsOutline color="gray" size={22} />}
           ></MenuIcon>
           <MenuIcon
             link="/cart"
-            icon={<RiShoppingCartLine color="white" size={22} />}
-            count={9}
+            icon={<RiShoppingCartLine color="gray" size={22} />}
           ></MenuIcon>
           <UserDropDownMenu />
         </MenuSection>

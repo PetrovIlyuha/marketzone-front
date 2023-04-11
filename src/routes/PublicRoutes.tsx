@@ -1,6 +1,9 @@
 import { FC, lazy } from "react";
 import { useLocation, Routes, Route, Navigate } from "react-router-dom";
 import { checkPathMatch, paths } from "./helpers";
+import FavoritesPage from "pages/Favorites/FavoritesPage";
+import PageNotFound from "pages/PageNotFound/PageNotFound";
+import AccountSettings from "pages/AccountSettings/AccountSettings";
 
 const HomePage = lazy(() => import("pages/HomePage"));
 const ProductDetails = lazy(() => import("pages/ProductDetails"));
@@ -12,11 +15,13 @@ const PublicRoutes: FC = () => {
 
   return (
     <Routes>
-      <Route path={paths.home} element={<HomePage />} />
-      <Route path={paths.productDetails} element={<ProductDetails />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="favorites" element={<FavoritesPage />} />
+      <Route path="product/:id" element={<ProductDetails />} />
+      <Route path="account-settings" element={<AccountSettings />} />
       <Route
         path="*"
-        element={!isPathMatched ? <Navigate to={paths.home} /> : null}
+        element={<PageNotFound message="This page does not exist" />}
       />
     </Routes>
   );
