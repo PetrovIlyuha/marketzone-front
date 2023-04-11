@@ -42,7 +42,7 @@ const userMenuItems = [
         <Col span={12} offset={5}>
           <Space style={{ padding: "2px 4px" }}>
             <Button type="primary">
-              <Link to={paths.logout}></Link>
+              <Link to={paths.logout}>Log Out</Link>
             </Button>
           </Space>
         </Col>
