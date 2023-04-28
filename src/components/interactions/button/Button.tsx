@@ -8,6 +8,7 @@ interface IButtonProps {
   block?: boolean;
   disabled?: boolean;
   height?: string;
+  fontSize?: string;
   width?: string;
   onClick?: (e: React.MouseEvent<any>) => void;
 }
@@ -19,6 +20,7 @@ const Button = styled(
     disabled,
     block = false,
     height,
+    fontSize,
     width,
     onClick = () => {},
     ...props
@@ -37,7 +39,7 @@ const Button = styled(
   height: ${({ height }) => (height ? height : "40px")};
   width: ${({ block }) => (block ? "100%" : "fit-content")};
   justify-content: ${({ block }) => (block ? "center" : "initial")};
-  font-size: 14px;
+  font-size: ${({ fontSize }) => (fontSize ? fontSize : "14px")};
   font-weight: 600;
   padding: 0 10px;
   letter-spacing: 0.5px;

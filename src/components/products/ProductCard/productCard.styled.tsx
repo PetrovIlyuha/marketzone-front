@@ -89,6 +89,10 @@ export const LikeButtonWrapper = styled.div`
   padding: 7px;
   border-radius: 8px;
   background: rgba(230, 230, 230, 0.7);
+
+  i {
+    transition: all 0.2s ease-in;
+  }
 `;
 
 export const LikeButtonIcon = styled.i<{ isLiked: boolean }>`

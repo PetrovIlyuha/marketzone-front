@@ -18,19 +18,18 @@ import Button from "components/interactions/button/Button";
 import { useAppDispatch, useAppSelector } from "store/types";
 import { selectFavoritedProducts } from "store/favorites/selectors";
 import { addToFavorites, removeFromFavorites } from "store/favorites/reducer";
+import { useMemo } from "react";
 
 interface ProductCardProps {
   product: IProductDetails;
   onLikeButtonClick?: () => void;
   exchangeRate?: number;
-  isLiked?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   product,
   exchangeRate,
   onLikeButtonClick,
-  isLiked = false,
 }) => {
   const favorites = useAppSelector(selectFavoritedProducts);
   const dispatch = useAppDispatch();
@@ -53,19 +52,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
+  const userIsOnFavoritesPage = useMemo(
+    () => window.location.pathname === "/favorites",
+    []
+  );
+
   return (
     <ProductCardWrapper>
       <ProductCardImageWrapper>
         <ProductCardImage src={imgSrc} />
       </ProductCardImageWrapper>
-      <LikeButtonWrapper onClick={handleLikeButtonClick}>
-        <FaHeart
-          size={20}
-          color={
-            favorites.includes(product.id) ? "#f72731" : "rgba(40,40,40,0.3)"
-          }
-        />
-      </LikeButtonWrapper>
+      {userIsOnFavoritesPage ? null : (
+        <LikeButtonWrapper onClick={handleLikeButtonClick}>
+          <FaHeart
+            size={20}
+            color={
+              favorites.includes(product.id) ? "#f72731" : "rgba(40,40,40,0.3)"
+            }
+          />
+        </LikeButtonWrapper>
+      )}
       <ProductCardContent>
         <ProductCardName>
           <Link to={`/product/${slug || id}`}>{title}</Link>
@@ -89,13 +95,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
               : null}
           </ProductCardDiscountedPrice>
         </ProductCardPrices>
-        <Button
-          block
-          type="primary"
-          onClick={() => console.log("product in cart")}
-        >
-          Add To Cart
-        </Button>
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <Button
+            block
+            height="40px"
+            type="primary"
+            onClick={() => console.log("product in cart")}
+          >
+            Add To Cart
+          </Button>
+          {userIsOnFavoritesPage && (
+            <Button
+              height="40px"
+              block
+              type="secondary"
+              onClick={handleLikeButtonClick}
+            >
+              Remove
+            </Button>
+          )}
+        </div>
       </ProductCardContent>
     </ProductCardWrapper>
   );

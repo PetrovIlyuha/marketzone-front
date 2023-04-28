@@ -1,5 +1,6 @@
 import { PageWrapper } from "App.Styled";
 import Button from "components/interactions/button/Button";
+import useCurrencyRate from "hooks/data-driven/useCurrencyRate";
 import { testProducts } from "pages/testProductsSeed";
 import { IProductDetails } from "pages/types";
 import { FC, useEffect, useState } from "react";
@@ -8,79 +9,35 @@ import { useParams } from "react-router-dom";
 import { addToFavorites, removeFromFavorites } from "store/favorites/reducer";
 import { selectFavoritedProducts } from "store/favorites/selectors";
 import { useAppDispatch, useAppSelector } from "store/types";
-import styled from "styled-components";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 1rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  gap: 4rem;
-  position: relative;
-`;
+import ImageMagnifierGlass from "utils/ImageMagnifierClass";
 
-const ImageContainer = styled.div`
-  width: 50%;
-`;
+import { GiMagnifyingGlass } from "react-icons/gi";
 
-const Image = styled.img`
-  width: 100%;
-  height: 500px;
-  object-fit: cover;
-  border-radius: 0.5rem;
-`;
-
-const DetailsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-`;
-
-const Name = styled.h1`
-  font-size: 2rem;
-`;
-
-const Price = styled.h2`
-  font-size: 1.5rem;
-  color: #4caf50;
-  margin-bottom: 1rem;
-`;
-
-const Description = styled.p`
-  font-size: 1.2rem;
-`;
-
-const LikeButtonWrapper = styled.div`
-  position: absolute;
-  top: 3%;
-  right: 1%;
-  cursor: pointer;
-  padding: 7px;
-  border-radius: 8px;
-  background: rgba(230, 230, 230, 0.7);
-`;
-
-const ActionsContainer = styled.div`
-  margin-top: 1rem;
-  display: flex;
-  gap: 1rem;
-  > * {
-    width: 200px;
-    text-align: center;
-  }
-`;
+import {
+  ActionsContainer,
+  Container,
+  Description,
+  DetailsContainer,
+  GlassButton,
+  Image,
+  ImageContainer,
+  LikeButtonWrapper,
+  Name,
+  ProductCardDiscountedPrice,
+  ProductCardPrices,
+  ProductCardRegularPrice,
+} from "./styled";
 
 const ProductDetails: FC = () => {
   const params = useParams();
+  const { currencyRate } = useCurrencyRate();
   const [product, setProduct] = useState<IProductDetails | null>(null);
+  const [magnifier, setMagnifier] = useState<boolean>(false);
   useEffect(() => {
     const foundProduct = testProducts.find((p) =>
       [String(p.id), p.slug].includes(params.id)
     );
-    console.log({ foundProduct });
     if (foundProduct) {
       setProduct(foundProduct);
     }
@@ -104,7 +61,18 @@ const ProductDetails: FC = () => {
         {product ? (
           <>
             <ImageContainer>
-              <Image src={product.imgSrc} alt={product.title} />
+              {magnifier ? (
+                <ImageMagnifierGlass
+                  src={product.imgSrc}
+                  width="100%"
+                  height="500px"
+                  zoomLevel={2.4}
+                  magnifieWidth={200}
+                  magnifierHeight={200}
+                />
+              ) : (
+                <Image src={product.imgSrc} />
+              )}
             </ImageContainer>
             <LikeButtonWrapper onClick={handleLikeButtonClick}>
               <FaHeart
@@ -118,8 +86,33 @@ const ProductDetails: FC = () => {
             </LikeButtonWrapper>
             <DetailsContainer>
               <Name>{product.title}</Name>
-              <Price>${product.priceRegular}</Price>
+              {/* <Price>${product.priceRegular}</Price> */}
+              <ProductCardPrices>
+                {product.priceDiscounted && (
+                  <ProductCardRegularPrice>
+                    ₽&nbsp;
+                    {currencyRate
+                      ? (product.priceRegular * currencyRate).toFixed(2)
+                      : product.priceRegular.toFixed(2)}
+                  </ProductCardRegularPrice>
+                )}
+                <ProductCardDiscountedPrice>
+                  ₽&nbsp;
+                  {currencyRate
+                    ? product.priceDiscounted
+                      ? (product.priceDiscounted * currencyRate).toFixed(2)
+                      : product.priceRegular.toFixed(2)
+                    : null}
+                </ProductCardDiscountedPrice>
+              </ProductCardPrices>
               <Description>{product.description}</Description>
+              <GlassButton
+                onClick={() => setMagnifier((p) => !p)}
+                enabled={magnifier}
+              >
+                <GiMagnifyingGlass size={32} />
+                <span>{magnifier ? "Disable" : "Enable"} Magnifier</span>
+              </GlassButton>
               <ActionsContainer>
                 <Button type="secondary">Add To Cart</Button>
                 <Button type="primary" onClick={handleLikeButtonClick}>
