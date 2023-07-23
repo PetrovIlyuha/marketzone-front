@@ -7,7 +7,7 @@ const useCurrencyRate = () => {
     number | undefined
   >(undefined);
 
-  const haveOneDayPassesSinceLastCheck = () => {
+  const isOneDayPassedSinceLastChecked = () => {
     if (localStorage.getItem(LOCALLY_STORED_EXCHANGE_RATE)!) {
       const storedRate = JSON.parse(
         localStorage.getItem(LOCALLY_STORED_EXCHANGE_RATE)!
@@ -23,7 +23,7 @@ const useCurrencyRate = () => {
   useEffect(() => {
     if (
       !localStorage.getItem(LOCALLY_STORED_EXCHANGE_RATE) ||
-      haveOneDayPassesSinceLastCheck()
+      isOneDayPassedSinceLastChecked()
     ) {
       axios
         .get(

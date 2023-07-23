@@ -1,7 +1,6 @@
 import { PageWrapper } from "App.Styled";
 import Button from "components/interactions/button/Button";
 import useCurrencyRate from "hooks/data-driven/useCurrencyRate";
-import { testProducts } from "pages/testProductsSeed";
 import { IProductDetails } from "pages/types";
 import { FC, useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
@@ -28,19 +27,16 @@ import {
   ProductCardPrices,
   ProductCardRegularPrice,
 } from "./styled";
+import { get } from "utils/requests";
 
 const ProductDetails: FC = () => {
   const params = useParams();
   const { currencyRate } = useCurrencyRate();
   const [product, setProduct] = useState<IProductDetails | null>(null);
   const [magnifier, setMagnifier] = useState<boolean>(false);
+
   useEffect(() => {
-    const foundProduct = testProducts.find((p) =>
-      [String(p.id), p.slug].includes(params.id)
-    );
-    if (foundProduct) {
-      setProduct(foundProduct);
-    }
+    get(`products/${params.id}`).then(({ data }) => setProduct(data));
   }, [params.id]);
 
   const favorites = useAppSelector(selectFavoritedProducts);
@@ -63,7 +59,7 @@ const ProductDetails: FC = () => {
             <ImageContainer>
               {magnifier ? (
                 <ImageMagnifierGlass
-                  src={product.imgSrc}
+                  src={`${process.env.REACT_APP_API_URL}images/products/${product.image}`}
                   width="100%"
                   height="500px"
                   zoomLevel={2.4}
@@ -71,7 +67,9 @@ const ProductDetails: FC = () => {
                   magnifierHeight={200}
                 />
               ) : (
-                <Image src={product.imgSrc} />
+                <Image
+                  src={`${process.env.REACT_APP_API_URL}images/products/${product.image}`}
+                />
               )}
             </ImageContainer>
             <LikeButtonWrapper onClick={handleLikeButtonClick}>
@@ -86,14 +84,14 @@ const ProductDetails: FC = () => {
             </LikeButtonWrapper>
             <DetailsContainer>
               <Name>{product.title}</Name>
-              {/* <Price>${product.priceRegular}</Price> */}
+              {/* <Price>${product.price}</Price> */}
               <ProductCardPrices>
                 {product.priceDiscounted && (
                   <ProductCardRegularPrice>
                     ₽&nbsp;
                     {currencyRate
-                      ? (product.priceRegular * currencyRate).toFixed(2)
-                      : product.priceRegular.toFixed(2)}
+                      ? (product.price * currencyRate).toFixed(2)
+                      : product.price.toFixed(2)}
                   </ProductCardRegularPrice>
                 )}
                 <ProductCardDiscountedPrice>
@@ -101,7 +99,7 @@ const ProductDetails: FC = () => {
                   {currencyRate
                     ? product.priceDiscounted
                       ? (product.priceDiscounted * currencyRate).toFixed(2)
-                      : product.priceRegular.toFixed(2)
+                      : product.price.toFixed(2)
                     : null}
                 </ProductCardDiscountedPrice>
               </ProductCardPrices>

@@ -34,15 +34,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const favorites = useAppSelector(selectFavoritedProducts);
   const dispatch = useAppDispatch();
 
-  const {
-    id,
-    slug,
-    imgSrc,
-    description,
-    title,
-    priceRegular,
-    priceDiscounted,
-  } = product;
+  const { id, slug, image, description, title, price, priceDiscounted } =
+    product;
 
   const handleLikeButtonClick = () => {
     if (!favorites.includes(product.id)) {
@@ -60,7 +53,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <ProductCardWrapper>
       <ProductCardImageWrapper>
-        <ProductCardImage src={imgSrc} />
+        <ProductCardImage
+          src={`${process.env.REACT_APP_API_URL}images/products/${image}`}
+        />
       </ProductCardImageWrapper>
       {userIsOnFavoritesPage ? null : (
         <LikeButtonWrapper onClick={handleLikeButtonClick}>
@@ -82,8 +77,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <ProductCardRegularPrice>
               ₽&nbsp;
               {exchangeRate
-                ? (priceRegular * exchangeRate).toFixed(2)
-                : priceRegular.toFixed(2)}
+                ? (price * exchangeRate).toFixed(2)
+                : price.toFixed(2)}
             </ProductCardRegularPrice>
           )}
           <ProductCardDiscountedPrice>
@@ -91,7 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             {exchangeRate
               ? priceDiscounted
                 ? (priceDiscounted * exchangeRate).toFixed(2)
-                : priceRegular.toFixed(2)
+                : price.toFixed(2)
               : null}
           </ProductCardDiscountedPrice>
         </ProductCardPrices>
