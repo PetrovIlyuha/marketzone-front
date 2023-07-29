@@ -11,7 +11,7 @@ export default function ImageMagnifierGlass({
 }) {
   const [[x, y], setXY] = useState([0, 0]);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
-  const [showMagnifier, setShowMagnifier] = useState(false);
+  const [showMagnifier, setShowMagnifier] = useState(true);
   return (
     <div
       style={{
@@ -71,7 +71,7 @@ export default function ImageMagnifierGlass({
           backgroundColor: "white",
           backgroundImage: `url('${src}')`,
           backgroundRepeat: "no-repeat",
-          borderRadius: "50%",
+          borderRadius: "5%",
           //calculate zoomed image size
           backgroundSize: `${imgWidth * zoomLevel}px ${
             imgHeight * zoomLevel

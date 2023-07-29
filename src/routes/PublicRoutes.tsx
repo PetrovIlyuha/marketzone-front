@@ -4,6 +4,8 @@ import { checkPathMatch, paths } from "./helpers";
 import FavoritesPage from "pages/Favorites/FavoritesPage";
 import PageNotFound from "pages/PageNotFound/PageNotFound";
 import AccountSettings from "pages/AccountSettings/AccountSettings";
+import LoginPage from "pages/AuthPages/LoginPage";
+import RegisterPage from "pages/AuthPages/RegisterPage";
 
 const HomePage = lazy(() => import("pages/HomePage"));
 const ProductDetails = lazy(() => import("pages/ProductDetails"));
@@ -19,6 +21,8 @@ const PublicRoutes: FC = () => {
       <Route path="favorites" element={<FavoritesPage />} />
       <Route path="product/:id" element={<ProductDetails />} />
       <Route path="account-settings" element={<AccountSettings />} />
+      <Route path="/auth/login" element={<LoginPage />} />
+      <Route path="/auth/register" element={<RegisterPage />} />
       <Route
         path="*"
         element={<PageNotFound message="This page does not exist" />}

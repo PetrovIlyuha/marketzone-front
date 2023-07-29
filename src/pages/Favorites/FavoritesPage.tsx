@@ -29,7 +29,7 @@ const FavoritesPage = () => {
   return (
     <>
       <Helmet>
-        <title>Избранное</title>
+        <title>Wishlist</title>
       </Helmet>
       <PageWrapper>
         <ProductGroup>

@@ -22,15 +22,10 @@ import { useMemo } from "react";
 
 interface ProductCardProps {
   product: IProductDetails;
-  onLikeButtonClick?: () => void;
   exchangeRate?: number;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
-  product,
-  exchangeRate,
-  onLikeButtonClick,
-}) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, exchangeRate }) => {
   const favorites = useAppSelector(selectFavoritedProducts);
   const dispatch = useAppDispatch();
 

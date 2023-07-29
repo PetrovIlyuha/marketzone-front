@@ -8,6 +8,8 @@ export const pathsPublic: { [key: string]: string } = {
 export const pathsPrivate: { [key: string]: string } = {
   accountSettings: "account-settings",
   logout: "logout",
+  register: "/auth/register",
+  login: "/auth/login",
 };
 
 export const paths = { ...pathsPublic, ...pathsPrivate } as const;

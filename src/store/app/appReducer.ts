@@ -30,7 +30,7 @@ const appSlice = createSlice({
   },
 });
 
-const {
+export const {
   isLoggedInReducer: isLoggedInAction,
   isAppLoadingReducer: isAppLoadingAction,
 } = appSlice.actions;

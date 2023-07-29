@@ -14,13 +14,18 @@ export const Container = styled.div`
 
 export const ImageContainer = styled.div`
   width: 50%;
+  overflow: hidden;
+  border-radius: 0.5rem;
 `;
 
 export const Image = styled.img`
   width: 100%;
   height: 500px;
   object-fit: cover;
-  border-radius: 0.5rem;
+  transition: transform 0.4s linear;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const DetailsContainer = styled.div`
@@ -108,5 +113,79 @@ export const GlassButton = styled.button<GlassProps>`
 
   span {
     font-weight: bold;
+  }
+`;
+
+export const MagnifierScaler = styled.div`
+  margin-top: 0.8rem;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 0.6rem;
+    font-weight: bolder;
+  }
+  /* Remove default styles */
+  input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 120px;
+    height: 10px;
+    background-color: transparent;
+    box-shadow: 2px 4px 8px rgb(0 0 0 / 30%);
+  }
+
+  /* Custom track styles */
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 20px;
+    background-color: darkcyan; /* Wide darkcyan line */
+    border-radius: 5px;
+  }
+
+  input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 10px;
+    background-color: darkcyan; /* Wide darkcyan line */
+    border-radius: 5px;
+  }
+
+  input[type="range"]::-ms-track {
+    width: 100%;
+    height: 10px;
+    background-color: darkcyan; /* Wide black line */
+    border-radius: 5px;
+  }
+
+  /* Custom handler styles */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: blue; /* Blue handler */
+    border-radius: 3px;
+    border: 2px solid white; /* Add a border for a more prominent handler */
+    cursor: pointer;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: blue; /* Blue handler */
+    border-radius: 3px;
+    border: 2px solid white; /* Add a border for a more prominent handler */
+    cursor: pointer;
+  }
+
+  input[type="range"]::-ms-thumb {
+    -ms-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: blue; /* Blue handler */
+    border-radius: 3px;
+    border: 2px solid white; /* Add a border for a more prominent handler */
+    cursor: pointer;
   }
 `;

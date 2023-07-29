@@ -22,6 +22,7 @@ import {
   Image,
   ImageContainer,
   LikeButtonWrapper,
+  MagnifierScaler,
   Name,
   ProductCardDiscountedPrice,
   ProductCardPrices,
@@ -34,6 +35,8 @@ const ProductDetails: FC = () => {
   const { currencyRate } = useCurrencyRate();
   const [product, setProduct] = useState<IProductDetails | null>(null);
   const [magnifier, setMagnifier] = useState<boolean>(false);
+  const [magnifierRadius, setMagnifierRadius] = useState<number>(300);
+  const [magnifierPower, setMagnifierPower] = useState<number>(2);
 
   useEffect(() => {
     get(`products/${params.id}`).then(({ data }) => setProduct(data));
@@ -62,9 +65,9 @@ const ProductDetails: FC = () => {
                   src={`${process.env.REACT_APP_API_URL}images/products/${product.image}`}
                   width="100%"
                   height="500px"
-                  zoomLevel={2.4}
-                  magnifieWidth={200}
-                  magnifierHeight={200}
+                  zoomLevel={1.5 * magnifierPower}
+                  magnifieWidth={magnifierRadius}
+                  magnifierHeight={magnifierRadius}
                 />
               ) : (
                 <Image
@@ -111,12 +114,55 @@ const ProductDetails: FC = () => {
                 <GiMagnifyingGlass size={32} />
                 <span>{magnifier ? "Disable" : "Enable"} Magnifier</span>
               </GlassButton>
+              {magnifier && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "50%",
+                    justifyContent: "space-between",
+                    margin: "1rem 0",
+                  }}
+                >
+                  <MagnifierScaler>
+                    <label htmlFor="magnifierScale">
+                      Magnifier Power:{" "}
+                      {magnifierPower === 1
+                        ? "Min 1.5x"
+                        : magnifierPower === 2
+                        ? "Mid 3.0x"
+                        : "Max 4.5x"}
+                    </label>
+                    <input
+                      type="range"
+                      min={1}
+                      max={3}
+                      value={magnifierPower}
+                      onChange={(e) => setMagnifierPower(+e.target.value)}
+                      id="magnifierScale"
+                    />
+                  </MagnifierScaler>
+                  <MagnifierScaler>
+                    <label htmlFor="magnifierScale">
+                      Magnifier Size: {magnifierRadius}
+                    </label>
+                    <input
+                      type="range"
+                      min={200}
+                      max={500}
+                      value={magnifierRadius}
+                      onChange={(e) => setMagnifierRadius(+e.target.value)}
+                      id="magnifierScale"
+                    />
+                  </MagnifierScaler>
+                </div>
+              )}
               <ActionsContainer>
                 <Button type="secondary">Add To Cart</Button>
                 <Button type="primary" onClick={handleLikeButtonClick}>
                   {favorites.includes(product.id)
-                    ? "Remove From Favorites"
-                    : "Add to Favorites"}
+                    ? "Remove From Wishlist"
+                    : "Add to Wishlist"}
                 </Button>
               </ActionsContainer>
             </DetailsContainer>

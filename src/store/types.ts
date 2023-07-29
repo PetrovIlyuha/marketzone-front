@@ -18,7 +18,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 
 export type AppDispatch = typeof store.dispatch;
-export type AppReducer<T, K = any> = CaseReducer<T, PayloadAction<K>>;
+export type AppReducer<T, Act = any> = CaseReducer<T, PayloadAction<Act>>;
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

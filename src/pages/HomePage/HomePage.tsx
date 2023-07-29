@@ -2,19 +2,25 @@ import { PageWrapper } from "App.Styled";
 import { FC, useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { ProductGroup, ProductGroupContainer } from "./styled";
-import { testProducts } from "pages/testProductsSeed";
 import ProductCard from "components/products/ProductCard/ProductCard";
 import useCurrencyRate from "hooks/data-driven/useCurrencyRate";
-import axios from "axios";
 import { get } from "utils/requests";
 import { IProductDetails, IResponse } from "pages/types";
+// import { useAppDispatch, useAppSelector } from "store/types";
+// import { isAppLoading } from "store/app/selectors";
+// import { isAppLoadingAction } from "store/app/appReducer";
+// import LoadingOverlay from "components/state-driven/LoadingIndicator";
 
 const HomePage: FC = () => {
   const { currencyRate } = useCurrencyRate();
   const [products, setProducts] = useState<IProductDetails[]>([]);
+  // const dispatch = useAppDispatch();
+  // const appLoading = useAppSelector(isAppLoading);
 
   useEffect(() => {
-    get("products").then((res: IResponse) => setProducts(res.data as any[]));
+    get("products").then((res: IResponse) => {
+      setProducts(res.data as any[]);
+    });
   }, []);
 
   return (
